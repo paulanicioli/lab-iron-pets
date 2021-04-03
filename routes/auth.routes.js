@@ -6,6 +6,8 @@ const User = require('../models/User');
 
 const bcrypt = require('bcrypt');
 
+const { validateSignup } = require('../validation/validations');
+
 router.get('/signup', (req, res) => {
   res.render('signup');
 });
@@ -13,29 +15,19 @@ router.get('/signup', (req, res) => {
 router.post('/signup', async (req, res) => {
   const { userName, userEmail, userPassword, userBirthDate } = req.body;
   //   Verificar se todas as informação necessárias foram enviadas
-  const validationErrors = {};
+  // Verificar se ele enviou as infos necessarias (todas)
+  const validationErrors = validateSignup(
+    userName,
+    userEmail,
+    userPassword,
+    userBirthDate
+  );
 
-  if (userName.trim().length === 0) {
-    validationErrors.userNameError = 'Campo Obrigatório';
-  }
-
-  if (userEmail.trim().length === 0) {
-    validationErrors.userEmailError = 'Campo Obrigatório';
-  }
-
-  if (userPassword.trim().length === 0) {
-    validationErrors.userPasswordError = 'Campo Obrigatório';
-  }
-
-  if (userBirthDate.trim().length === 0) {
-    validationErrors.userBirthDateError = 'Campo Obrigatório';
-  }
-
-  // se houver pelo menos um erro....
+  // se houver pelo menos um erro...
   if (Object.keys(validationErrors).length > 0) {
-    return res.render('signup', { validationErrors });
-    // Damos return para garantir que nenhum código abaixo seja executado
+    return res.render('signup', validationErrors);
   }
+  // Damos return para garantir que nenhum código abaixo seja executado
   // Verificar se o usuário já foi cadastrado anteriormente, através do email
   try {
     const userFromDb = await User.findOne({ email: userEmail }); // dentro de uma função assíncrona, quando colocamos await, o comando vira síncrono (tem que esperar ele rodar para fazer o próximo comando)
