@@ -1,0 +1,29 @@
+<h1>Bem vindo ao Iron Pets! Faça seu cadastro e aproveite nossos incríveis serviços</h1>
+
+<form action="/signup" method="post">
+<div>
+    <input type="text" name="userName" placeholder="Digite seu nome completo">
+    {{#if validationErrors.userNameError}}
+        <span>{{validationErrors.userNameError}}</span>
+    {{/if}}
+</div>
+<div>
+    <input type="email" name="userEmail" placeholder="Digite seu email">
+    {{#if validationErrors.userEmailError}}
+        <span>{{validationErrors.userEmailError}}</span>
+    {{/if}}
+</div>
+<div>
+    <input type="password" name="userPassword" placeholder="Escolha sua senha">
+    {{#if validationErrors.userPasswordError}}
+        <span>{{validationErrors.userPasswordError}}</span>
+    {{/if}}
+</div>
+<div>
+    <input type="date" name="userBirthDate" placeholder="Digite sua data de nascimento">
+    {{#if validationErrors.userBirthDateError}}
+        <span>{{validationErrors.userBirthDateError}}</span>
+    {{/if}}
+</div>
+<button type="submit">Efetuar cadastro</button>
+</form>

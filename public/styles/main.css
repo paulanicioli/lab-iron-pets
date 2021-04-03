@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+nav {
+  background-color: lightblue;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: red;
+}
+
+.warning {
+  display: block;
+  color: red;
+}
