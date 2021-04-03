@@ -1,6 +1,8 @@
 const express = require('express');
 const { format } = require('date-format-parse');
 
+require('dotenv').config();
+
 const router = express();
 
 const Pet = require('../models/Pet');
@@ -41,7 +43,6 @@ router.post('/new', fileUploader.single('petImage'), (req, res) => {
     birthDate: petBirthDate,
     owner: req.session.currentUser._id,
   };
-
   Pet.create(newPet)
     .then(() => {
       // Redirect não é view, é a rota absoluta
